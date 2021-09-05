@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/shoai/AndroidStudioProjects/CreBits/app/src/main/res/layout/activity_main.xml" value="0.22554347826086957" />
+        <entry key="..\:/Users/shoai/AndroidStudioProjects/CreBits/app/src/main/res/layout/fragment_about.xml" value="0.30885416666666665" />
+        <entry key="..\:/Users/shoai/AndroidStudioProjects/CreBits/app/src/main/res/layout/fragment_add_edit_crebit.xml" value="0.30885416666666665" />
+        <entry key="..\:/Users/shoai/AndroidStudioProjects/CreBits/app/src/main/res/layout/fragment_crebit_list.xml" value="0.30885416666666665" />
+        <entry key="..\:/Users/shoai/AndroidStudioProjects/CreBits/app/src/main/res/layout/fragment_reports.xml" value="0.30885416666666665" />
+        <entry key="..\:/Users/shoai/AndroidStudioProjects/CreBits/app/src/main/res/layout/nav_drawer_header.xml" value="0.30885416666666665" />
+        <entry key="..\:/Users/shoai/AndroidStudioProjects/CreBits/app/src/main/res/menu/nav_drawer_menu.xml" value="0.30885416666666665" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
