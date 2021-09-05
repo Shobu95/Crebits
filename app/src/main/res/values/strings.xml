@@ -8,5 +8,12 @@
     <string name="edit_crebit">Edit Crebit</string>
     <string name="reports">Reports</string>
     <string name="about">About Me</string>
+    <string name="credit">Credit</string>
+    <string name="debit">Debit</string>
+    <string name="hint_enter_amount">Enter Amount</string>
+    <string name="hint_select_date">Select Date</string>
+    <string name="hinr_select_time">Select Time</string>
+    <string name="hint_enter_description">Enter Description</string>
+    <string name="btn_add_text">Save</string>
 
 </resources>
