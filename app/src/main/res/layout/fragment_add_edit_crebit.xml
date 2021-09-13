@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.shobu95.crebits.utils.enums.TransactionType"/>
+        <variable
+            name="viewModel"
+            type="com.shobu95.crebits.features.add_edit_crebit.AddEditCrebitViewModel" />
     </data>
 
     <FrameLayout
@@ -37,14 +40,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/credit" />
+                        android:text="@string/credit"
+                        android:checked="@{viewModel.transactionType.equals(TransactionType.CREDIT)}"
+                        android:onClick="@{() -> viewModel.setTransactionType(TransactionType.CREDIT)}"/>
 
                     <RadioButton
                         android:id="@+id/rb_debit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/debit" />
+                        android:text="@string/debit"
+                        android:checked="@{viewModel.transactionType.equals(TransactionType.DEBIT)}"
+                        android:onClick="@{() -> viewModel.setTransactionType(TransactionType.DEBIT)}"/>
 
                 </RadioGroup>
 
@@ -54,6 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:ems="10"
+                    android:text="@={viewModel.amount}"
                     android:hint="@string/hint_enter_amount"
                     android:inputType="number"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
+                        android:text="@={viewModel.date}"
                         android:hint="@string/hint_select_date"
                         android:inputType="date" />
 
@@ -85,6 +94,7 @@
                         android:layout_weight="1"
                         android:ems="10"
                         android:hint="@string/hinr_select_time"
+                        android:text="@={viewModel.time}"
                         android:inputType="time" />
                 </LinearLayout>
 
@@ -98,6 +108,7 @@
                     android:hint="@string/hint_enter_description"
                     android:inputType="textMultiLine"
                     android:lines="5"
+                    android:text="@={viewModel.description}"
                     android:maxLines="5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +121,8 @@
                     android:text="@string/btn_add_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:onClick="@{() -> viewModel.save()}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

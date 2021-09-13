@@ -13,6 +13,15 @@
         <action
             android:id="@+id/action_crebitList_to_addEditCrebit"
             app:destination="@id/addEditCrebit" />
+        <action
+            android:id="@+id/action_crebitList_to_reports2"
+            app:destination="@id/reports" />
+        <action
+            android:id="@+id/action_crebitList_to_reports3"
+            app:destination="@id/reports" />
+        <action
+            android:id="@+id/action_crebitList_to_about2"
+            app:destination="@id/about" />
     </fragment>
     <fragment
         android:id="@+id/addEditCrebit"
