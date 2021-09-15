@@ -1,43 +1,47 @@
 package com.shobu95.crebits.features.add_edit_crebit
 
 import android.util.Log
-import androidx.databinding.Bindable
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.shobu95.crebits.models.Transaction
+import com.shobu95.crebits.database.TransactionDatabaseDao
+import com.shobu95.crebits.database.entities.Transaction
 import com.shobu95.crebits.utils.enums.TransactionType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class AddEditCrebitViewModel: ViewModel() {
+class AddEditCrebitViewModel(val database: TransactionDatabaseDao) : ViewModel() {
 
-    private val _transactionType = MutableLiveData<TransactionType>()
-    val transactionType: LiveData<TransactionType> = _transactionType
+    val transactionType = MutableLiveData<String>()
+    val amount = MutableLiveData<String>()
+    val date = MutableLiveData<String>()
+    val time = MutableLiveData<String>()
+    val description = MutableLiveData<String>()
 
-    private val _amount = MutableLiveData<String>()
-    val amount: LiveData<String> = _amount
-
-    private val _date = MutableLiveData<String>()
-    val date: LiveData<String> = _date
-
-    private val _time = MutableLiveData<String>()
-    val time: LiveData<String> = _time
-
-    private val _description = MutableLiveData<String>()
-    val description: LiveData<String> = _description
+    val allTransactions = database.getAll()
 
     fun setTransactionType(type: TransactionType) {
-        _transactionType.value = type
+        transactionType.value = type.name
     }
 
-    fun save() {
-        val transaction = Transaction()
-        transaction.type = _transactionType.value
-        transaction.amount = amount.value
-        transaction.date = date.value
-        transaction.time = time.value
-        transaction.description = description.value
+    fun saveTransaction() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val transaction = Transaction()
+            transaction.type = transactionType.value
+            transaction.amount = amount.value
+            transaction.date = date.value
+            transaction.time = time.value
+            transaction.description = description.value
+            save(transaction)
+        }
+    }
 
-        Log.d("Crebit", transaction.toString())
+    private suspend fun save(transaction: Transaction) {
+        withContext(Dispatchers.IO) {
+            Log.d("Crebit", transaction.toString())
+            database.save(transaction)
+        }
     }
 
 

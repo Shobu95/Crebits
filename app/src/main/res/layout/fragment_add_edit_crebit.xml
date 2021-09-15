@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/credit"
-                        android:checked="@{viewModel.transactionType.equals(TransactionType.CREDIT)}"
+                        android:checked="@{viewModel.transactionType.equals(TransactionType.CREDIT.name())}"
                         android:onClick="@{() -> viewModel.setTransactionType(TransactionType.CREDIT)}"/>
 
                     <RadioButton
@@ -50,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/debit"
-                        android:checked="@{viewModel.transactionType.equals(TransactionType.DEBIT)}"
+                        android:checked="@{viewModel.transactionType.equals(TransactionType.DEBIT.name())}"
                         android:onClick="@{() -> viewModel.setTransactionType(TransactionType.DEBIT)}"/>
 
                 </RadioGroup>
@@ -122,7 +122,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:onClick="@{() -> viewModel.save()}"/>
+                    android:onClick="@{() -> viewModel.saveTransaction()}" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

@@ -1,12 +1,15 @@
-package com.shobu95.crebits.models
+package com.shobu95.crebits.database.entities
 
-import com.shobu95.crebits.utils.enums.TransactionType
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "transactions")
 data class Transaction(
 
-
+    @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
-    var type: TransactionType? = null,
+
+    var type: String? = null,
     var amount: String? = null,
     var date: String? = null,
     var time: String? = null,

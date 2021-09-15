@@ -2,6 +2,9 @@
 buildscript {
     ext {
         version_navigation = "2.3.0"
+        version_room = "2.3.0"
+        version_lifecycle_extensions = "2.2.0"
+        version_coroutine = "1.3.7"
     }
 
     repositories {
