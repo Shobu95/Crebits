@@ -1,4 +1,4 @@
-package com.shobu95.crebits.features.add_edit_crebit
+package com.shobu95.crebits.screens.add_edit_crebit
 
 import android.os.Bundle
 import android.view.LayoutInflater

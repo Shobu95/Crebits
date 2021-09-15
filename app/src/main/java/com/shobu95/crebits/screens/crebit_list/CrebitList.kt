@@ -1,15 +1,13 @@
-package com.shobu95.crebits.features.crebit_list
+package com.shobu95.crebits.screens.crebit_list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.shobu95.crebits.R
-import com.shobu95.crebits.databinding.ActivityMainBinding
 import com.shobu95.crebits.databinding.FragmentCrebitListBinding
 
 class CrebitList : Fragment() {

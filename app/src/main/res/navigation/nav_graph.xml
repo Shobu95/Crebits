@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/crebitList"
-        android:name="com.shobu95.crebits.features.crebit_list.CrebitList"
+        android:name="com.shobu95.crebits.screens.crebit_list.CrebitList"
         android:label="@string/crebit_list_title"
         tools:layout="@layout/fragment_crebit_list">
         <action
@@ -25,17 +25,17 @@
     </fragment>
     <fragment
         android:id="@+id/addEditCrebit"
-        android:name="com.shobu95.crebits.features.add_edit_crebit.AddEditCrebit"
+        android:name="com.shobu95.crebits.screens.add_edit_crebit.AddEditCrebit"
         android:label="@string/add_crebit"
         tools:layout="@layout/fragment_add_edit_crebit" />
     <fragment
         android:id="@+id/reports"
-        android:name="com.shobu95.crebits.features.reports.Reports"
+        android:name="com.shobu95.crebits.screens.reports.Reports"
         android:label="@string/reports"
         tools:layout="@layout/fragment_reports" />
     <fragment
         android:id="@+id/about"
-        android:name="com.shobu95.crebits.features.about.About"
+        android:name="com.shobu95.crebits.screens.about.About"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
 </navigation>

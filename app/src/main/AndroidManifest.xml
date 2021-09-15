@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CreBits">
         <activity
-            android:name=".features.MainActivity"
+            android:name=".screens.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

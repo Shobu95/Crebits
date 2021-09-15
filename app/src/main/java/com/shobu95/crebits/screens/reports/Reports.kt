@@ -1,10 +1,10 @@
-package com.shobu95.crebits.features.reports
+package com.shobu95.crebits.screens.reports
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.shobu95.crebits.R
 
 class Reports : Fragment() {

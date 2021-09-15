@@ -10,7 +10,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".features.crebit_list.CrebitList">
+        tools:context=".screens.crebit_list.CrebitList">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

@@ -7,7 +7,7 @@
         <import type="com.shobu95.crebits.utils.enums.TransactionType"/>
         <variable
             name="viewModel"
-            type="com.shobu95.crebits.features.add_edit_crebit.AddEditCrebitViewModel" />
+            type="com.shobu95.crebits.screens.add_edit_crebit.AddEditCrebitViewModel" />
     </data>
 
     <FrameLayout
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/screen_padding"
-                tools:context=".features.add_edit_crebit.AddEditCrebit">
+                tools:context=".screens.add_edit_crebit.AddEditCrebit">
 
 
                 <RadioGroup
