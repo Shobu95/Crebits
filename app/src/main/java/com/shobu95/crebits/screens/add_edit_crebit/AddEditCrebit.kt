@@ -11,6 +11,8 @@ import com.shobu95.crebits.R
 import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.databinding.FragmentAddEditCrebitBinding
+import com.shobu95.crebits.utils.dialogs.DatePickerFragment
+import com.shobu95.crebits.utils.dialogs.TimePickerFragment
 
 class AddEditCrebit : Fragment() {
 
@@ -24,21 +26,43 @@ class AddEditCrebit : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_add_edit_crebit, container, false)
+        binding = DataBindingUtil
+            .inflate(inflater, R.layout.fragment_add_edit_crebit, container, false)
 
         val application = requireNotNull(this.activity).application
         database = TransactionDatabase.getInstance(application).transactionDatabaseDao
 
         viewModelFactory = AddEditCrebitViewModelFactory(database)
-        viewModel =
-            ViewModelProvider(this, viewModelFactory).get(AddEditCrebitViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(AddEditCrebitViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
 
+        setDatePickerObserver()
+        setTimePickerObserver()
 
         return binding.root
+    }
+
+    private fun setDatePickerObserver() {
+        viewModel.openDatePicker.observe(viewLifecycleOwner, {
+            if (it)
+                DatePickerFragment(viewModel.setDatePickerListener()).show(
+                    parentFragmentManager,
+                    "datePicker"
+                )
+        });
+    }
+
+    private fun setTimePickerObserver() {
+        viewModel.openTimePicker.observe(viewLifecycleOwner, {
+            if (it)
+                TimePickerFragment(viewModel.setTimePickerListener()).show(
+                    parentFragmentManager,
+                    "timePicker"
+                )
+        });
     }
 
 }

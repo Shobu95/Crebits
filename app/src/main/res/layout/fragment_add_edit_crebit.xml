@@ -85,7 +85,8 @@
                         android:ems="10"
                         android:text="@={viewModel.date}"
                         android:hint="@string/hint_select_date"
-                        android:inputType="date" />
+                        android:focusable="false"
+                        android:onClick="@{() -> viewModel.openDatePicker()}" />
 
                     <EditText
                         android:id="@+id/et_time"
@@ -93,9 +94,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
+                        android:focusable="false"
                         android:hint="@string/hinr_select_time"
                         android:text="@={viewModel.time}"
-                        android:inputType="time" />
+                        android:onClick="@{() -> viewModel.openTimePicker()}" />
                 </LinearLayout>
 
                 <EditText
