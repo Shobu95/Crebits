@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="viewModel"
+            type="com.shobu95.crebits.screens.crebit_list.CrebitListViewModel" />
 
     </data>
 
@@ -13,20 +17,20 @@
         tools:context=".screens.crebit_list.CrebitList">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_crebits"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/rv_crebits"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_crebit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fab_add_crebit"
-            android:src="@drawable/ic_add"
-            android:backgroundTint="@color/primaryColor"
-            app:tint="@color/primaryTextColor"
             android:layout_gravity="bottom|right"
-            android:layout_margin="@dimen/fab_margin" />
+            android:layout_margin="@dimen/fab_margin"
+            android:backgroundTint="@color/primaryColor"
+            android:src="@drawable/ic_add"
+            app:tint="@color/primaryTextColor" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

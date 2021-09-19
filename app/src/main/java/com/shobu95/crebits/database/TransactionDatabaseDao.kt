@@ -13,7 +13,7 @@ interface TransactionDatabaseDao {
     @Update
     fun edit(transaction: Transaction)
 
-    @Query("SELECT * FROM transactions")
+    @Query("SELECT * FROM transactions ORDER BY id DESC")
     fun getAll(): LiveData<List<Transaction>>
 
     @Query("SELECT * FROM transactions WHERE id = :id")
