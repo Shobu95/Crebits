@@ -15,5 +15,6 @@
     <string name="hinr_select_time">Select Time</string>
     <string name="hint_enter_description">Enter Description</string>
     <string name="btn_add_text">Save</string>
+    <string name="saved_message">Saved</string>
 
 </resources>

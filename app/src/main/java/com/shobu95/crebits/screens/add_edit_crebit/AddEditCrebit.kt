@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.shobu95.crebits.R
 import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
@@ -41,6 +43,8 @@ class AddEditCrebit : Fragment() {
 
         setDatePickerObserver()
         setTimePickerObserver()
+        setNavigateToList()
+        setupSnackBarEvent()
 
         return binding.root
     }
@@ -52,7 +56,7 @@ class AddEditCrebit : Fragment() {
                     parentFragmentManager,
                     "datePicker"
                 )
-        });
+        })
     }
 
     private fun setTimePickerObserver() {
@@ -62,7 +66,29 @@ class AddEditCrebit : Fragment() {
                     parentFragmentManager,
                     "timePicker"
                 )
-        });
+        })
+    }
+
+    private fun setNavigateToList() {
+        viewModel.navigateToList.observe(viewLifecycleOwner, {
+            if (it == true) {
+                this.findNavController().popBackStack()
+                viewModel.onNavigateToListScreenComplete()
+            }
+        })
+    }
+
+    private fun setupSnackBarEvent() {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
+            if (it == true) {
+                Snackbar.make(
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.saved_message),
+                    Snackbar.LENGTH_LONG
+                ).show()
+                viewModel.doneShowingSnackbar()
+            }
+        })
     }
 
 }

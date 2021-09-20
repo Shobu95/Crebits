@@ -1,6 +1,5 @@
 package com.shobu95.crebits.screens.add_edit_crebit
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +26,12 @@ class AddEditCrebitViewModel(val database: TransactionDatabaseDao) : ViewModel()
 
     private var _openTimePicker = MutableLiveData<Boolean>()
     val openTimePicker: LiveData<Boolean> get() = _openTimePicker
+
+    private var _navigateToList = MutableLiveData<Boolean>()
+    val navigateToList: LiveData<Boolean> get() = _navigateToList
+
+    private var _showSnackBarEvent = MutableLiveData<Boolean>()
+    val showSnackBarEvent: LiveData<Boolean> get() = _showSnackBarEvent
 
     fun setTransactionType(type: TransactionType) {
         transactionType.value = type.name
@@ -78,14 +83,23 @@ class AddEditCrebitViewModel(val database: TransactionDatabaseDao) : ViewModel()
             transaction.time = time.value
             transaction.description = description.value
             save(transaction)
+            _navigateToList.value = true
         }
     }
 
     private suspend fun save(transaction: Transaction) {
         withContext(Dispatchers.IO) {
-            Log.d("Crebit", transaction.toString())
             database.save(transaction)
         }
+    }
+
+    fun onNavigateToListScreenComplete() {
+        _navigateToList.value = false
+        _showSnackBarEvent.value = true
+    }
+
+    fun doneShowingSnackbar() {
+        _showSnackBarEvent.value = false
     }
 
 
