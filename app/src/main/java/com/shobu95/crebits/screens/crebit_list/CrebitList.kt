@@ -1,6 +1,7 @@
 package com.shobu95.crebits.screens.crebit_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,11 @@ class CrebitList : Fragment() {
     }
 
     private fun setupCrebitList() {
-        val adapter = CrebitListAdapter(viewModel)
+        val adapter = CrebitListAdapter(CrebitListListener {
+            if (it != null) {
+                Log.d("crebit", it.toString())
+            }
+        })
         binding.rvCrebits.adapter = adapter
 
         viewModel.transactions.observe(viewLifecycleOwner, {
