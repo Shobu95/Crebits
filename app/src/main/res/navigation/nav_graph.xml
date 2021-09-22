@@ -26,8 +26,12 @@
     <fragment
         android:id="@+id/addEditCrebit"
         android:name="com.shobu95.crebits.screens.add_edit_crebit.AddEditCrebit"
-        android:label="@string/add_crebit"
-        tools:layout="@layout/fragment_add_edit_crebit" />
+        tools:layout="@layout/fragment_add_edit_crebit">
+        <argument
+            android:name="transaction"
+            app:argType="com.shobu95.crebits.database.entities.Transaction"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/reports"
         android:name="com.shobu95.crebits.screens.reports.Reports"

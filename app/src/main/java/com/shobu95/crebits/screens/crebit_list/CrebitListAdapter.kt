@@ -29,10 +29,12 @@ class CrebitListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Transaction, clickListener: CrebitListListener) {
-            binding.transaction = item
-            binding.clickListener = clickListener
-            setTransactionIcon(item)
-            binding.executePendingBindings()
+            binding.apply {
+                transaction = item
+                itemClickListener = clickListener
+                setTransactionIcon(item)
+                executePendingBindings()
+            }
         }
 
         private fun setTransactionIcon(item: Transaction) {
@@ -42,7 +44,6 @@ class CrebitListAdapter(
                 binding.imgTransaction.setImageResource(R.drawable.ic_debit_arrow)
             }
         }
-
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
@@ -54,8 +55,8 @@ class CrebitListAdapter(
     }
 }
 
-class CrebitListListener(val clickListener: (id: Int) -> Unit) {
-    fun onClick(transaction: Transaction) = transaction.id?.let { clickListener(it) }
+class CrebitListListener(val clickListener: (transaction: Transaction) -> Unit) {
+    fun onClick(transaction: Transaction) = transaction?.let { clickListener(it) }
 }
 
 class TransactionDiffCallback : DiffUtil.ItemCallback<Transaction>() {

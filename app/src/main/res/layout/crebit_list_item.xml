@@ -9,14 +9,14 @@
             type="com.shobu95.crebits.database.entities.Transaction" />
 
         <variable
-            name="clickListener"
+            name="itemClickListener"
             type="com.shobu95.crebits.screens.crebit_list.CrebitListListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(transaction)}"
+        android:onClick="@{() -> itemClickListener.onClick(transaction)}"
         android:padding="@dimen/screen_padding_low">
 
         <ImageView

@@ -13,7 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class AddEditCrebitViewModel(val database: TransactionDatabaseDao) : ViewModel() {
+class AddEditCrebitViewModel(
+    val transaction: Transaction?,
+    val database: TransactionDatabaseDao
+) : ViewModel() {
 
     val transactionType = MutableLiveData<String>()
     val amount = MutableLiveData<String>()
@@ -27,11 +30,26 @@ class AddEditCrebitViewModel(val database: TransactionDatabaseDao) : ViewModel()
     private var _openTimePicker = MutableLiveData<Boolean>()
     val openTimePicker: LiveData<Boolean> get() = _openTimePicker
 
+    private var _toolbarText = MutableLiveData<String>()
+    val toolbarText: LiveData<String> get() = _toolbarText
+
+    private var _buttonText = MutableLiveData<String>()
+    val buttonText: LiveData<String> get() = _buttonText
+
     private var _navigateToList = MutableLiveData<Boolean>()
     val navigateToList: LiveData<Boolean> get() = _navigateToList
 
     private var _showSnackBarEvent = MutableLiveData<Boolean>()
     val showSnackBarEvent: LiveData<Boolean> get() = _showSnackBarEvent
+
+    init {
+        if (transaction != null) {
+            setData()
+            setScreenForEdit()
+        } else {
+            setScreenForAdd()
+        }
+    }
 
     fun setTransactionType(type: TransactionType) {
         transactionType.value = type.name
@@ -51,6 +69,24 @@ class AddEditCrebitViewModel(val database: TransactionDatabaseDao) : ViewModel()
 
     fun onTimePickerClosed() {
         _openTimePicker.value = false
+    }
+
+    private fun setData() {
+        transactionType.value = transaction?.type
+        amount.value = transaction?.amount
+        date.value = transaction?.date
+        time.value = transaction?.time
+        description.value = transaction?.description
+    }
+
+    private fun setScreenForAdd() {
+        _toolbarText.value = "Add Crebit"
+        _buttonText.value = "Save"
+    }
+
+    private fun setScreenForEdit() {
+        _toolbarText.value = "Edit Crebit"
+        _buttonText.value = "Update"
     }
 
     fun setDatePickerListener(): DatePickerListener {

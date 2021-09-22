@@ -28,25 +28,51 @@ class AddEditCrebit : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_add_edit_crebit, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_add_edit_crebit,
+            container,
+            false
+        )
 
-        val application = requireNotNull(this.activity).application
-        database = TransactionDatabase.getInstance(application).transactionDatabaseDao
+        setupDatabase()
+        setupViewModel()
+        setupViewLifeCycle()
 
-        viewModelFactory = AddEditCrebitViewModelFactory(database)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(AddEditCrebitViewModel::class.java)
-
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
-
+        setupScreenState()
         setDatePickerObserver()
         setTimePickerObserver()
         setNavigateToList()
         setupSnackBarEvent()
 
         return binding.root
+    }
+
+    private fun setupDatabase() {
+        val application = requireNotNull(this.activity).application
+        database = TransactionDatabase.getInstance(application).transactionDatabaseDao
+    }
+
+    private fun setupViewModel() {
+        val arguments = AddEditCrebitArgs.fromBundle(requireArguments())
+        viewModelFactory = AddEditCrebitViewModelFactory(arguments.transaction, database)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(AddEditCrebitViewModel::class.java)
+    }
+
+    private fun setupViewLifeCycle() {
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this.viewLifecycleOwner
+    }
+
+    private fun setupScreenState() {
+        viewModel.toolbarText.observe(viewLifecycleOwner, {
+            this.findNavController().currentDestination?.label = it
+        })
+
+        viewModel.buttonText.observe(viewLifecycleOwner, {
+            binding.btnAdd.text = it
+        })
     }
 
     private fun setDatePickerObserver() {

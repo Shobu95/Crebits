@@ -1,8 +1,11 @@
 package com.shobu95.crebits.database.entities
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "transactions")
 data class Transaction(
 
@@ -15,7 +18,7 @@ data class Transaction(
     var time: String? = null,
     var description: String? = null
 
-) {
+) : Parcelable {
     override fun toString(): String {
         return "Transaction(" +
                 "id=$id, " +

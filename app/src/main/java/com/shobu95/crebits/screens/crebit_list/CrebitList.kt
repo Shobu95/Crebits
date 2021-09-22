@@ -1,7 +1,6 @@
 package com.shobu95.crebits.screens.crebit_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.shobu95.crebits.R
 import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
@@ -27,11 +27,17 @@ class CrebitList : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_crebit_list, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_crebit_list,
+            container,
+            false
+        )
 
         setupDatabase()
         setupViewModel()
         setupViewLifeCycle()
+
         setupCrebitList()
         navigateToAddEditCrebitScreen()
 
@@ -50,14 +56,17 @@ class CrebitList : Fragment() {
     }
 
     private fun setupViewLifeCycle() {
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding.apply {
+            listViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
     private fun setupCrebitList() {
         val adapter = CrebitListAdapter(CrebitListListener {
             if (it != null) {
-                Log.d("crebit", it.toString())
+                val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(it)
+                this.findNavController().navigate(direction)
             }
         })
         binding.rvCrebits.adapter = adapter
@@ -71,7 +80,8 @@ class CrebitList : Fragment() {
 
     private fun navigateToAddEditCrebitScreen() {
         binding.fabAddCrebit.setOnClickListener {
-            it.findNavController().navigate(CrebitListDirections.actionCrebitListToAddEditCrebit())
+            val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(null)
+            it.findNavController().navigate(direction)
         }
 
     }
