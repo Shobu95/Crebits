@@ -13,6 +13,7 @@ import com.shobu95.crebits.R
 import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.databinding.FragmentAddEditCrebitBinding
+import com.shobu95.crebits.utils.Constants
 import com.shobu95.crebits.utils.dialogs.DatePickerFragment
 import com.shobu95.crebits.utils.dialogs.TimePickerFragment
 
@@ -66,13 +67,21 @@ class AddEditCrebit : Fragment() {
     }
 
     private fun setupScreenState() {
-        viewModel.toolbarText.observe(viewLifecycleOwner, {
-            this.findNavController().currentDestination?.label = it
+        viewModel.screenState.observe(viewLifecycleOwner, {
+            if (it.equals(Constants.SCREEN_STATE_ADD)) {
+                setAddScreen()
+            } else {
+                setEditScreen()
+            }
         })
+    }
 
-        viewModel.buttonText.observe(viewLifecycleOwner, {
-            binding.btnAdd.text = it
-        })
+    private fun setAddScreen() {
+        binding.btnAdd.text = "Save"
+    }
+
+    private fun setEditScreen() {
+        binding.btnAdd.text = "Update"
     }
 
     private fun setDatePickerObserver() {

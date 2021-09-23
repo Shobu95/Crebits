@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.database.entities.Transaction
+import com.shobu95.crebits.utils.Constants
 import com.shobu95.crebits.utils.dialogs.DatePickerListener
 import com.shobu95.crebits.utils.dialogs.TimePickerListener
 import com.shobu95.crebits.utils.enums.TransactionType
@@ -24,17 +25,14 @@ class AddEditCrebitViewModel(
     val time = MutableLiveData<String>()
     val description = MutableLiveData<String>()
 
+    private var _screenState = MutableLiveData<String>()
+    val screenState: LiveData<String> get() = _screenState
+
     private var _openDatePicker = MutableLiveData<Boolean>()
     val openDatePicker: LiveData<Boolean> get() = _openDatePicker
 
     private var _openTimePicker = MutableLiveData<Boolean>()
     val openTimePicker: LiveData<Boolean> get() = _openTimePicker
-
-    private var _toolbarText = MutableLiveData<String>()
-    val toolbarText: LiveData<String> get() = _toolbarText
-
-    private var _buttonText = MutableLiveData<String>()
-    val buttonText: LiveData<String> get() = _buttonText
 
     private var _navigateToList = MutableLiveData<Boolean>()
     val navigateToList: LiveData<Boolean> get() = _navigateToList
@@ -45,9 +43,9 @@ class AddEditCrebitViewModel(
     init {
         if (transaction != null) {
             setData()
-            setScreenForEdit()
+            _screenState.value = Constants.SCREEN_STATE_EDIT
         } else {
-            setScreenForAdd()
+            _screenState.value = Constants.SCREEN_STATE_ADD
         }
     }
 
@@ -77,16 +75,6 @@ class AddEditCrebitViewModel(
         date.value = transaction?.date
         time.value = transaction?.time
         description.value = transaction?.description
-    }
-
-    private fun setScreenForAdd() {
-        _toolbarText.value = "Add Crebit"
-        _buttonText.value = "Save"
-    }
-
-    private fun setScreenForEdit() {
-        _toolbarText.value = "Edit Crebit"
-        _buttonText.value = "Update"
     }
 
     fun setDatePickerListener(): DatePickerListener {

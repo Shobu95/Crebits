@@ -25,6 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/addEditCrebit"
+        android:label="@string/add_edit_crebit"
         android:name="com.shobu95.crebits.screens.add_edit_crebit.AddEditCrebit"
         tools:layout="@layout/fragment_add_edit_crebit">
         <argument

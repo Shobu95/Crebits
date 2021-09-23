@@ -6,6 +6,7 @@
     <string name="crebit_list_title">My Crebits</string>
     <string name="add_crebit">Add Crebit</string>
     <string name="edit_crebit">Edit Crebit</string>
+    <string name="add_edit_crebit">Add/Edit Crebit</string>
     <string name="reports">Reports</string>
     <string name="about">About Me</string>
     <string name="credit">Credit</string>
