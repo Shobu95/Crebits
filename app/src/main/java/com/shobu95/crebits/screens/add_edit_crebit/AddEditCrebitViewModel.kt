@@ -97,25 +97,55 @@ class AddEditCrebitViewModel(
         return clickListener
     }
 
+    fun onExecute() {
+        if (_screenState.value.equals(Constants.SCREEN_STATE_ADD)) {
+            saveTransaction()
+        } else {
+            updateTransaction()
+        }
+    }
 
-    fun saveTransaction() {
+
+    private fun saveTransaction() {
         CoroutineScope(Dispatchers.Main).launch {
-            val transaction = Transaction()
-            transaction.type = transactionType.value
-            transaction.amount = amount.value
-            transaction.date = date.value
-            transaction.time = time.value
-            transaction.description = description.value
-            save(transaction)
+            val newTransaction = Transaction()
+            newTransaction.type = transactionType.value
+            newTransaction.amount = amount.value
+            newTransaction.date = date.value
+            newTransaction.time = time.value
+            newTransaction.description = description.value
+            save(newTransaction)
             _navigateToList.value = true
         }
     }
 
     private suspend fun save(transaction: Transaction) {
         withContext(Dispatchers.IO) {
-            database.save(transaction)
+            database.insert(transaction)
         }
     }
+
+    private fun updateTransaction() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val updatedTransaction = Transaction(
+                transaction?.id,
+                transactionType.value,
+                amount.value,
+                date.value,
+                time.value,
+                description.value,
+            )
+            update(updatedTransaction)
+            _navigateToList.value = true
+        }
+    }
+
+    private suspend fun update(transaction: Transaction) {
+        withContext(Dispatchers.IO) {
+            database.update(transaction)
+        }
+    }
+
 
     fun onNavigateToListScreenComplete() {
         _navigateToList.value = false

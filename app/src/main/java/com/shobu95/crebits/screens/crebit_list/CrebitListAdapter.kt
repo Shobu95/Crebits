@@ -12,7 +12,8 @@ import com.shobu95.crebits.screens.crebit_list.CrebitListAdapter.ViewHolder
 import com.shobu95.crebits.utils.enums.TransactionType
 
 class CrebitListAdapter(
-    private val clickListener: CrebitListListener
+    private val clickListener: CrebitListListener,
+    private val deleteListener: DeleteCrebitListener
 ) :
     ListAdapter<Transaction, ViewHolder>(TransactionDiffCallback()) {
 
@@ -22,16 +23,21 @@ class CrebitListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener)
+        holder.bind(item, clickListener, deleteListener)
     }
 
     class ViewHolder private constructor(private val binding: CrebitListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Transaction, clickListener: CrebitListListener) {
+        fun bind(
+            item: Transaction,
+            clickListener: CrebitListListener,
+            deleteListener: DeleteCrebitListener
+        ) {
             binding.apply {
                 transaction = item
                 itemClickListener = clickListener
+                itemLongClickListener = deleteListener
                 setTransactionIcon(item)
                 executePendingBindings()
             }
@@ -57,6 +63,10 @@ class CrebitListAdapter(
 
 class CrebitListListener(val clickListener: (transaction: Transaction) -> Unit) {
     fun onClick(transaction: Transaction) = transaction?.let { clickListener(it) }
+}
+
+class DeleteCrebitListener(val longClickListener: (transaction: Transaction) -> Boolean) {
+    fun onLongClick(transaction: Transaction) = transaction?.let { longClickListener(it) }
 }
 
 class TransactionDiffCallback : DiffUtil.ItemCallback<Transaction>() {

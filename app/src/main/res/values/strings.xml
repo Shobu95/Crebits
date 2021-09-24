@@ -17,5 +17,8 @@
     <string name="hint_enter_description">Enter Description</string>
     <string name="btn_add_text">Save</string>
     <string name="saved_message">Saved</string>
+    <string name="delete_message">Are you sure you want to delete this transaction?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 
 </resources>

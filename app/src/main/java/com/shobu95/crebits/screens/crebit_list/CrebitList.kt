@@ -14,6 +14,7 @@ import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.database.entities.Transaction
 import com.shobu95.crebits.databinding.FragmentCrebitListBinding
+import com.shobu95.crebits.utils.dialogs.TwoButtonDialogFragment
 
 class CrebitList : Fragment() {
 
@@ -37,7 +38,6 @@ class CrebitList : Fragment() {
         setupDatabase()
         setupViewModel()
         setupViewLifeCycle()
-
         setupCrebitList()
         navigateToAddEditCrebitScreen()
 
@@ -68,6 +68,8 @@ class CrebitList : Fragment() {
                 val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(it)
                 this.findNavController().navigate(direction)
             }
+        }, DeleteCrebitListener {
+            showDeleteDialog(it)
         })
         binding.rvCrebits.adapter = adapter
 
@@ -78,12 +80,21 @@ class CrebitList : Fragment() {
         })
     }
 
+    private fun showDeleteDialog(transaction: Transaction): Boolean {
+        TwoButtonDialogFragment(
+            getString(R.string.delete_message),
+            getString(R.string.yes),
+            getString(R.string.no),
+            viewModel.setDeleteDialogListener(transaction)
+        ).show(parentFragmentManager, "deleteDialog")
+        return true
+    }
+
     private fun navigateToAddEditCrebitScreen() {
         binding.fabAddCrebit.setOnClickListener {
             val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(null)
             it.findNavController().navigate(direction)
         }
-
     }
 
 

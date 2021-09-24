@@ -39,7 +39,6 @@ class AddEditCrebit : Fragment() {
         setupDatabase()
         setupViewModel()
         setupViewLifeCycle()
-
         setupScreenState()
         setDatePickerObserver()
         setTimePickerObserver()
@@ -77,11 +76,11 @@ class AddEditCrebit : Fragment() {
     }
 
     private fun setAddScreen() {
-        binding.btnAdd.text = "Save"
+        binding.btnExecute.text = "Save"
     }
 
     private fun setEditScreen() {
-        binding.btnAdd.text = "Update"
+        binding.btnExecute.text = "Update"
     }
 
     private fun setDatePickerObserver() {
@@ -118,7 +117,7 @@ class AddEditCrebit : Fragment() {
             if (it == true) {
                 Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),
-                    getString(R.string.saved_message),
+                    binding.btnExecute.text.toString() + "d Successfully",
                     Snackbar.LENGTH_LONG
                 ).show()
                 viewModel.doneShowingSnackbar()

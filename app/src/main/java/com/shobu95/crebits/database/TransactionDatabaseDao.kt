@@ -8,10 +8,10 @@ import com.shobu95.crebits.database.entities.Transaction
 interface TransactionDatabaseDao {
 
     @Insert
-    fun save(transaction: Transaction)
+    fun insert(transaction: Transaction)
 
     @Update
-    fun edit(transaction: Transaction)
+    fun update(transaction: Transaction)
 
     @Query("SELECT * FROM transactions ORDER BY id DESC")
     fun getAll(): LiveData<List<Transaction>>
@@ -20,6 +20,6 @@ interface TransactionDatabaseDao {
     fun getById(id: Int): Transaction?
 
     @Delete
-    fun deleteById(transaction: Transaction)
+    fun delete(transaction: Transaction)
 
 }
