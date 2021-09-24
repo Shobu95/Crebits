@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.shobu95.crebits.R
 import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
@@ -16,6 +15,7 @@ import com.shobu95.crebits.databinding.FragmentAddEditCrebitBinding
 import com.shobu95.crebits.utils.Constants
 import com.shobu95.crebits.utils.dialogs.DatePickerFragment
 import com.shobu95.crebits.utils.dialogs.TimePickerFragment
+import com.shobu95.crebits.utils.showSnackBar
 
 class AddEditCrebit : Fragment() {
 
@@ -114,14 +114,12 @@ class AddEditCrebit : Fragment() {
 
     private fun setupSnackBarEvent() {
         viewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
-            if (it == true) {
-                Snackbar.make(
-                    requireActivity().findViewById(android.R.id.content),
-                    binding.btnExecute.text.toString() + "d Successfully",
-                    Snackbar.LENGTH_LONG
-                ).show()
-                viewModel.doneShowingSnackbar()
+            if (it.equals(Constants.SCREEN_STATE_ADD)) {
+                view?.showSnackBar(getString(R.string.add_crebit_message))
+            } else {
+                view?.showSnackBar(getString(R.string.edit_crebit_message))
             }
+
         })
     }
 

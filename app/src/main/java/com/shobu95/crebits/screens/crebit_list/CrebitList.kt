@@ -15,6 +15,7 @@ import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.database.entities.Transaction
 import com.shobu95.crebits.databinding.FragmentCrebitListBinding
 import com.shobu95.crebits.utils.dialogs.TwoButtonDialogFragment
+import com.shobu95.crebits.utils.showSnackBar
 
 class CrebitList : Fragment() {
 
@@ -39,6 +40,7 @@ class CrebitList : Fragment() {
         setupViewModel()
         setupViewLifeCycle()
         setupCrebitList()
+        setupSnackBar()
         navigateToAddEditCrebitScreen()
 
         return binding.root
@@ -90,12 +92,23 @@ class CrebitList : Fragment() {
         return true
     }
 
+    private fun setupSnackBar() {
+        viewModel.showDeleteSnackBar.observe(viewLifecycleOwner, {
+            if (it == true) {
+                view?.showSnackBar(getString(R.string.delete_crebit_message))
+                viewModel.onSnackBarShown()
+            }
+
+        })
+    }
+
     private fun navigateToAddEditCrebitScreen() {
         binding.fabAddCrebit.setOnClickListener {
             val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(null)
             it.findNavController().navigate(direction)
         }
     }
+
 
 
 }

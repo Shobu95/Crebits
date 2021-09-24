@@ -20,5 +20,8 @@
     <string name="delete_message">Are you sure you want to delete this transaction?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="add_crebit_message">Saved Successfully</string>
+    <string name="edit_crebit_message">Updated Successfully</string>
+    <string name="delete_crebit_message">Deleted Successfully</string>
 
 </resources>

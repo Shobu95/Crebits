@@ -37,8 +37,8 @@ class AddEditCrebitViewModel(
     private var _navigateToList = MutableLiveData<Boolean>()
     val navigateToList: LiveData<Boolean> get() = _navigateToList
 
-    private var _showSnackBarEvent = MutableLiveData<Boolean>()
-    val showSnackBarEvent: LiveData<Boolean> get() = _showSnackBarEvent
+    private var _showSnackBarEvent = MutableLiveData<String>()
+    val showSnackBarEvent: LiveData<String> get() = _showSnackBarEvent
 
     init {
         if (transaction != null) {
@@ -149,12 +149,9 @@ class AddEditCrebitViewModel(
 
     fun onNavigateToListScreenComplete() {
         _navigateToList.value = false
-        _showSnackBarEvent.value = true
+        _showSnackBarEvent.value = screenState.value
     }
 
-    fun doneShowingSnackbar() {
-        _showSnackBarEvent.value = false
-    }
 
 
 }
