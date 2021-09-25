@@ -13,8 +13,8 @@ import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.databinding.FragmentAddEditCrebitBinding
 import com.shobu95.crebits.utils.Constants
-import com.shobu95.crebits.utils.dialogs.DatePickerFragment
-import com.shobu95.crebits.utils.dialogs.TimePickerFragment
+import com.shobu95.crebits.utils.DatePickerFragment
+import com.shobu95.crebits.utils.TimePickerFragment
 import com.shobu95.crebits.utils.showSnackBar
 
 class AddEditCrebit : Fragment() {
@@ -76,11 +76,11 @@ class AddEditCrebit : Fragment() {
     }
 
     private fun setAddScreen() {
-        binding.btnExecute.text = "Save"
+        binding.btnExecute.text = Constants.SAVE
     }
 
     private fun setEditScreen() {
-        binding.btnExecute.text = "Update"
+        binding.btnExecute.text = Constants.UPDATE
     }
 
     private fun setDatePickerObserver() {
@@ -88,7 +88,7 @@ class AddEditCrebit : Fragment() {
             if (it)
                 DatePickerFragment(viewModel.setDatePickerListener()).show(
                     parentFragmentManager,
-                    "datePicker"
+                    Constants.DATE_PICKER
                 )
         })
     }
@@ -98,7 +98,7 @@ class AddEditCrebit : Fragment() {
             if (it)
                 TimePickerFragment(viewModel.setTimePickerListener()).show(
                     parentFragmentManager,
-                    "timePicker"
+                    Constants.TIME_PICKER
                 )
         })
     }

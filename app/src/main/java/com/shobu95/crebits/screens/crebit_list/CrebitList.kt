@@ -14,7 +14,8 @@ import com.shobu95.crebits.database.TransactionDatabase
 import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.database.entities.Transaction
 import com.shobu95.crebits.databinding.FragmentCrebitListBinding
-import com.shobu95.crebits.utils.dialogs.TwoButtonDialogFragment
+import com.shobu95.crebits.utils.Constants
+import com.shobu95.crebits.utils.TwoButtonDialogFragment
 import com.shobu95.crebits.utils.showSnackBar
 
 class CrebitList : Fragment() {
@@ -88,7 +89,7 @@ class CrebitList : Fragment() {
             getString(R.string.yes),
             getString(R.string.no),
             viewModel.setDeleteDialogListener(transaction)
-        ).show(parentFragmentManager, "deleteDialog")
+        ).show(parentFragmentManager, Constants.DELETE_DIALOG)
         return true
     }
 
