@@ -7,5 +7,5 @@
   implementation of new design patterns and principles are allowed and welcome.
 - If you are solving an issue, checkout your branch from 'develop' and name it in the following convention.
     ```
-    issue_<No>_<developer_name> Example: issue_2_shobu95
+    issue_<number>_<developer_name> Example: issue_2_shobu95
     ```
