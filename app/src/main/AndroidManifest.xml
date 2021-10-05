@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CreBits">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".screens.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".screens.MainActivity"
+            android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
