@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.shobu95.crebits.database.TransactionDatabaseDao
 import com.shobu95.crebits.database.entities.Transaction
-import com.shobu95.crebits.utils.DialogButtonListener
+import com.shobu95.crebits.utils.dialogs.DialogButtonListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
