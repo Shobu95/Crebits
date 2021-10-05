@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#38c172"
+    android:background="?attr/colorAccent"
     tools:context=".screens.SplashScreenActivity">
 
     <TextView
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/accounts_animation" />
+        app:lottie_rawRes="@raw/cash_card_animation" />
 
     <TextView
         android:layout_width="wrap_content"

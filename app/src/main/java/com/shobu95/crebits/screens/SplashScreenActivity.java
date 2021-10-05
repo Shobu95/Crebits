@@ -23,7 +23,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        int colorCodeDark = Color.parseColor("#38c172");
+        int colorCodeDark = Color.parseColor("#666AD1");
         window.setStatusBarColor(colorCodeDark);
 
         final Handler handler = new Handler(Looper.getMainLooper());
