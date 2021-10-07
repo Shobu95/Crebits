@@ -32,6 +32,9 @@
             android:name="transaction"
             app:argType="com.shobu95.crebits.database.entities.Transaction"
             app:nullable="true" />
+        <argument
+            android:name="state"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/reports"

@@ -68,7 +68,7 @@ class CrebitList : Fragment() {
     private fun setupCrebitList() {
         val adapter = CrebitListAdapter(CrebitListListener {
             if (it != null) {
-                val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(it)
+                val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(it,getString(R.string.edit_crebit))
                 this.findNavController().navigate(direction)
             }
         }, DeleteCrebitListener {
@@ -105,7 +105,7 @@ class CrebitList : Fragment() {
 
     private fun navigateToAddEditCrebitScreen() {
         binding.fabAddCrebit.setOnClickListener {
-            val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(null)
+            val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(null,getString(R.string.add_crebit))
             it.findNavController().navigate(direction)
         }
     }
