@@ -44,8 +44,55 @@ class AddEditCrebit : Fragment() {
         setTimePickerObserver()
         setNavigateToList()
         setupSnackBarEvent()
+        setupBtnExecute()
 
         return binding.root
+    }
+
+    private fun setupBtnExecute() {
+        binding.btnExecute.setOnClickListener {
+            if (validateForm())
+                viewModel.onExecute()
+        }
+    }
+
+    private fun validateForm(): Boolean {
+
+        if(viewModel.transactionType.value==null){
+            binding.rbDebit.error = getString(R.string.error_message, "Option")
+            binding.errorText.text = getString(R.string.error_message, "Option")
+            binding.errorText.visibility = View.VISIBLE
+            return false
+        } else {
+            binding.rbDebit.error = null
+            binding.errorText.visibility = View.GONE
+        }
+
+        if(viewModel.amount.value==null){
+            binding.etAmount.error = getString(R.string.error_message, "Amount")
+            return false
+        } else
+            binding.etAmount.error = null
+
+        if(viewModel.date.value==null){
+            binding.etDate.error = getString(R.string.error_message, "Date")
+            return false
+        }else
+            binding.etDate.error = null
+
+        if(viewModel.time.value==null){
+            binding.etTime.error = getString(R.string.error_message, "Time")
+            return false
+        }else
+            binding.etTime.error = null
+
+        if(viewModel.description.value==null){
+            binding.etDescription.error = getString(R.string.error_message, "Description")
+            return false
+        }else
+            binding.etDescription.error = null
+
+        return true
     }
 
     private fun setupDatabase() {
