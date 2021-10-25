@@ -10,6 +10,7 @@ android {
     compileSdk 30
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
 
     defaultConfig {
@@ -56,6 +57,9 @@ dependencies {
 
 
     implementation "androidx.recyclerview:recyclerview:$recyclerViewVersion"
+
+    //SDP - dealing responsiveness
+    implementation "com.intuit.sdp:sdp-android:$sdpVersion"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
