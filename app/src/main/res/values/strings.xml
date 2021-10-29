@@ -24,5 +24,9 @@
     <string name="edit_crebit_message">Updated Successfully</string>
     <string name="delete_crebit_message">Deleted Successfully</string>
     <string name="error_message">Please Enter Any %s</string>
+    <string name="lbl_personal">Personal</string>
+    <string name="lbl_about">About</string>
+    <string name="lbl_options">Options</string>
+    <string name="lbl_reports">Reports</string>
 
 </resources>

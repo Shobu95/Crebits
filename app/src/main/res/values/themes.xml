@@ -16,5 +16,21 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
     </style>
+    <style name="Theme.CreBits.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorAccent">@color/primaryLightColor</item>
+        <item name="iconTint">@color/primaryDarkColor</item>
+
+        <!--Theme Fonts-->
+        <item name="font">@font/capriola</item>
+        <item name="fontFamily">@font/capriola</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+    </style>
 
 </resources>

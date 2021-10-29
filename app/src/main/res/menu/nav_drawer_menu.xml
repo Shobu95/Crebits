@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-    <item
-        android:id="@+id/reports"
-        android:icon="@drawable/ic_report"
-        android:title="Reports" />
+    <group android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/about"
-        android:icon="@drawable/ic_person"
-        android:title="About" />
+        <item android:title="@string/lbl_options">
+            <menu>
+                <item
+                    android:id="@+id/reports"
+                    android:icon="@drawable/ic_report"
+                    android:title="@string/lbl_reports" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item android:title="@string/lbl_personal">
+            <menu>
+                <item
+                    android:id="@+id/about"
+                    android:icon="@drawable/ic_person"
+                    android:title="@string/lbl_about" />
+            </menu>
+        </item>
+    </group>
 
 </menu>
