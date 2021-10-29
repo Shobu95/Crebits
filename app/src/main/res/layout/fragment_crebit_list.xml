@@ -26,11 +26,12 @@
             android:id="@+id/fab_add_crebit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/fab_margin"
             android:backgroundTint="@color/primaryColor"
             android:src="@drawable/ic_add"
-            app:tint="@color/primaryTextColor" />
+            app:tint="@color/primaryTextColor"
+            android:contentDescription="@string/add_crebit" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

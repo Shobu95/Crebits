@@ -20,9 +20,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/screen_padding_medium"
-            tools:context=".screens.add_edit_crebit.AddEditCrebit">
-
+            android:padding="@dimen/_15sdp">
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -37,8 +35,12 @@
                     android:id="@+id/rb_credit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_weight="1"
+                    android:background="@drawable/rb_white_selector"
+                    android:button="@null"
                     android:checked="@{viewModel.transactionType.equals(TransactionType.CREDIT.name())}"
+                    android:gravity="center"
                     android:onClick="@{() -> viewModel.setTransactionType(TransactionType.CREDIT)}"
                     android:text="@string/credit" />
 
@@ -47,7 +49,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/rb_white_selector"
+                    android:button="@null"
                     android:checked="@{viewModel.transactionType.equals(TransactionType.DEBIT.name())}"
+                    android:gravity="center"
                     android:onClick="@{() -> viewModel.setTransactionType(TransactionType.DEBIT)}"
                     android:text="@string/debit" />
 
@@ -64,71 +69,78 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/background_white"
                 android:ems="10"
                 android:hint="@string/hint_enter_amount"
                 android:inputType="number"
+                android:padding="@dimen/_10sdp"
                 android:text="@={viewModel.amount}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/error_text" />
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_date"
+                android:layout_width="@dimen/_125sdp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/et_amount"
-                tools:layout_editor_absoluteX="16dp">
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_weight="1"
+                android:background="@drawable/background_white"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/hint_select_date"
+                android:onClick="@{() -> viewModel.openDatePicker()}"
+                android:padding="@dimen/_10sdp"
+                android:text="@={viewModel.date}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_amount" />
 
-                <EditText
-                    android:id="@+id/et_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:hint="@string/hint_select_date"
-                    android:onClick="@{() -> viewModel.openDatePicker()}"
-                    android:text="@={viewModel.date}" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_time"
+                android:layout_width="@dimen/_125sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@drawable/background_white"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="@string/hinr_select_time"
+                android:onClick="@{() -> viewModel.openTimePicker()}"
+                android:padding="@dimen/_10sdp"
+                android:text="@={viewModel.time}"
+                app:layout_constraintBottom_toBottomOf="@+id/et_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_amount" />
 
-                <EditText
-                    android:id="@+id/et_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:hint="@string/hinr_select_time"
-                    android:onClick="@{() -> viewModel.openTimePicker()}"
-                    android:text="@={viewModel.time}" />
-            </LinearLayout>
-
-            <EditText
+            <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/background_white"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="@string/hint_enter_description"
                 android:inputType="textMultiLine"
                 android:lines="5"
                 android:maxLines="5"
+                android:padding="@dimen/_10sdp"
                 android:text="@={viewModel.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/et_date" />
 
             <Button
                 android:id="@+id/btn_execute"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="@dimen/_40sdp"
                 android:text="@string/btn_add_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
