@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
     buildFeatures {
         dataBinding true
         viewBinding true
@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.shobu95.crebits"
         minSdk 21
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -67,5 +67,8 @@ dependencies {
     
     //Lottie-Animation
     implementation 'com.airbnb.android:lottie:3.7.0'
+
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0-alpha10'
 
 }
