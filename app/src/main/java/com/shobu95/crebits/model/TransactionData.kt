@@ -1,13 +1,14 @@
-package com.shobu95.crebits.database.entities
+package com.shobu95.crebits.model
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.shobu95.crebits.utils.Constants
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "transactions")
-data class Transaction(
+@Entity(tableName = Constants.TRANSACTION_TABLE)
+data class TransactionData(
 
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,

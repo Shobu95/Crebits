@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.shobu95.crebits.utils.enums.TransactionType" />
+        <import type="com.shobu95.crebits.utils.Constants.TransactionType" />
 
         <variable
             name="viewModel"
