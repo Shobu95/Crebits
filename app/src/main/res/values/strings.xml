@@ -28,5 +28,11 @@
     <string name="lbl_about">About</string>
     <string name="lbl_options">Options</string>
     <string name="lbl_reports">Reports</string>
+    <string name="update_profile">Update</string>
+    <string name="phone_no">03450000000</string>
+    <string name="username">Name</string>
+    <string name="useremail">Email</string>
+    <string name="userphone">Phone</string>
+    <string name="email">Wiliam@gmail.com</string>
 
 </resources>
