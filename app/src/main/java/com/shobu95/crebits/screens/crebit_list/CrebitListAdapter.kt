@@ -6,16 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.shobu95.crebits.R
-import com.shobu95.crebits.database.entities.Transaction
+import com.shobu95.crebits.model.TransactionData
 import com.shobu95.crebits.databinding.CrebitListItemBinding
 import com.shobu95.crebits.screens.crebit_list.CrebitListAdapter.ViewHolder
-import com.shobu95.crebits.utils.enums.TransactionType
+import com.shobu95.crebits.utils.Constants.TransactionType
 
 class CrebitListAdapter(
     private val clickListener: CrebitListListener,
     private val deleteListener: DeleteCrebitListener
 ) :
-    ListAdapter<Transaction, ViewHolder>(TransactionDiffCallback()) {
+    ListAdapter<TransactionData, ViewHolder>(TransactionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -30,7 +30,7 @@ class CrebitListAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: Transaction,
+            item: TransactionData,
             clickListener: CrebitListListener,
             deleteListener: DeleteCrebitListener
         ) {
@@ -43,7 +43,7 @@ class CrebitListAdapter(
             }
         }
 
-        private fun setTransactionIcon(item: Transaction) {
+        private fun setTransactionIcon(item: TransactionData) {
             if (item.type.equals(TransactionType.CREDIT.name)) {
                 binding.imgTransaction.setImageResource(R.drawable.ic_credit_arrow)
             } else {
@@ -61,20 +61,20 @@ class CrebitListAdapter(
     }
 }
 
-class CrebitListListener(val clickListener: (transaction: Transaction) -> Unit) {
-    fun onClick(transaction: Transaction) = transaction?.let { clickListener(it) }
+class CrebitListListener(val clickListener: (transactionData: TransactionData) -> Unit) {
+    fun onClick(transactionData: TransactionData) = transactionData?.let { clickListener(it) }
 }
 
-class DeleteCrebitListener(val longClickListener: (transaction: Transaction) -> Boolean) {
-    fun onLongClick(transaction: Transaction) = transaction?.let { longClickListener(it) }
+class DeleteCrebitListener(val longClickListener: (transactionData: TransactionData) -> Boolean) {
+    fun onLongClick(transactionData: TransactionData) = transactionData?.let { longClickListener(it) }
 }
 
-class TransactionDiffCallback : DiffUtil.ItemCallback<Transaction>() {
-    override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
+class TransactionDiffCallback : DiffUtil.ItemCallback<TransactionData>() {
+    override fun areItemsTheSame(oldItem: TransactionData, newItem: TransactionData): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
+    override fun areContentsTheSame(oldItem: TransactionData, newItem: TransactionData): Boolean {
         return oldItem == newItem
     }
 }

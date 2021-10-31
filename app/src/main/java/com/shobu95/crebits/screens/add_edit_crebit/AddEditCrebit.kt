@@ -5,24 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.shobu95.crebits.R
-import com.shobu95.crebits.database.TransactionDatabase
-import com.shobu95.crebits.database.TransactionDatabaseDao
+import com.shobu95.crebits.base.FragmentBase
 import com.shobu95.crebits.databinding.FragmentAddEditCrebitBinding
 import com.shobu95.crebits.utils.Constants
 import com.shobu95.crebits.utils.DatePickerFragment
 import com.shobu95.crebits.utils.TimePickerFragment
 import com.shobu95.crebits.utils.showSnackBar
 
-class AddEditCrebit : Fragment() {
+class AddEditCrebit : FragmentBase() {
 
     private lateinit var binding: FragmentAddEditCrebitBinding
-    private lateinit var viewModelFactory: AddEditCrebitViewModelFactory
-    private lateinit var database: TransactionDatabaseDao
-    private lateinit var viewModel: AddEditCrebitViewModel
+    private val viewModel: AddEditCrebitViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+            .get(AddEditCrebitViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +35,9 @@ class AddEditCrebit : Fragment() {
             false
         )
 
-        setupDatabase()
-        setupViewModel()
+        /*setupDatabase()
+        setupViewModel()*/
+        viewModel.getTransactionData(arguments?.getParcelable("transaction"))
         setupViewLifeCycle()
         setupScreenState()
         setDatePickerObserver()
@@ -58,7 +58,7 @@ class AddEditCrebit : Fragment() {
 
     private fun validateForm(): Boolean {
 
-        if(viewModel.transactionType.value==null){
+        if (viewModel.transactionType.value == null) {
             binding.rbDebit.error = getString(R.string.error_message, "Option")
             binding.errorText.text = getString(R.string.error_message, "Option")
             binding.errorText.visibility = View.VISIBLE
@@ -68,36 +68,36 @@ class AddEditCrebit : Fragment() {
             binding.errorText.visibility = View.GONE
         }
 
-        if(viewModel.amount.value==null){
+        if (viewModel.amount.value == null) {
             binding.etAmount.error = getString(R.string.error_message, "Amount")
             return false
         } else
             binding.etAmount.error = null
 
-        if(viewModel.date.value==null){
+        if (viewModel.date.value == null) {
             binding.etDate.error = getString(R.string.error_message, "Date")
             return false
-        }else
+        } else
             binding.etDate.error = null
 
-        if(viewModel.time.value==null){
+        if (viewModel.time.value == null) {
             binding.etTime.error = getString(R.string.error_message, "Time")
             return false
-        }else
+        } else
             binding.etTime.error = null
 
-        if(viewModel.description.value==null){
+        if (viewModel.description.value == null) {
             binding.etDescription.error = getString(R.string.error_message, "Description")
             return false
-        }else
+        } else
             binding.etDescription.error = null
 
         return true
     }
 
-    private fun setupDatabase() {
+    /*private fun setupDatabase() {
         val application = requireNotNull(this.activity).application
-        database = TransactionDatabase.getInstance(application).transactionDatabaseDao
+        database = TransactionDatabaseOld.getInstance(application).transactionDatabaseDao
     }
 
     private fun setupViewModel() {
@@ -105,7 +105,7 @@ class AddEditCrebit : Fragment() {
         viewModelFactory = AddEditCrebitViewModelFactory(arguments.transaction, database)
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(AddEditCrebitViewModel::class.java)
-    }
+    }*/
 
     private fun setupViewLifeCycle() {
         binding.viewModel = viewModel

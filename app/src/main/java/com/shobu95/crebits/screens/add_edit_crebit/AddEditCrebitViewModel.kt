@@ -3,28 +3,32 @@ package com.shobu95.crebits.screens.add_edit_crebit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.shobu95.crebits.database.TransactionDatabaseDao
-import com.shobu95.crebits.database.entities.Transaction
+import androidx.lifecycle.viewModelScope
+import com.shobu95.crebits.backend.repository.GeneralRepository
+import com.shobu95.crebits.model.TransactionData
 import com.shobu95.crebits.utils.Constants
 import com.shobu95.crebits.utils.DatePickerListener
 import com.shobu95.crebits.utils.TimePickerListener
-import com.shobu95.crebits.utils.enums.TransactionType
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.shobu95.crebits.utils.Constants.TransactionType
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AddEditCrebitViewModel(
-    val transaction: Transaction?,
-    val database: TransactionDatabaseDao
-) : ViewModel() {
+class AddEditCrebitViewModel @Inject constructor(val repository: GeneralRepository) : ViewModel() {
 
+    private var transactionData: TransactionData? = null
+
+    /*
+    * Dealing with UI
+    * */
     val transactionType = MutableLiveData<String>()
     val amount = MutableLiveData<String>()
     val date = MutableLiveData<String>()
     val time = MutableLiveData<String>()
     val description = MutableLiveData<String>()
 
+    /*
+    * LifeData Variables
+    * */
     private var _screenState = MutableLiveData<String>()
     val screenState: LiveData<String> get() = _screenState
 
@@ -40,9 +44,10 @@ class AddEditCrebitViewModel(
     private var _showSnackBarEvent = MutableLiveData<String>()
     val showSnackBarEvent: LiveData<String> get() = _showSnackBarEvent
 
-    init {
-        if (transaction != null) {
-            setData()
+    fun getTransactionData(transactionData: TransactionData?) {
+        if (transactionData != null) {
+            this.transactionData = transactionData
+            setTransactionUIData(transactionData)
             _screenState.value = Constants.SCREEN_STATE_EDIT
         } else {
             _screenState.value = Constants.SCREEN_STATE_ADD
@@ -67,14 +72,6 @@ class AddEditCrebitViewModel(
 
     fun onTimePickerClosed() {
         _openTimePicker.value = false
-    }
-
-    private fun setData() {
-        transactionType.value = transaction?.type
-        amount.value = transaction?.amount
-        date.value = transaction?.date
-        time.value = transaction?.time
-        description.value = transaction?.description
     }
 
     fun setDatePickerListener(): DatePickerListener {
@@ -105,53 +102,46 @@ class AddEditCrebitViewModel(
         }
     }
 
-
-    private fun saveTransaction() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val newTransaction = Transaction()
-            newTransaction.type = transactionType.value
-            newTransaction.amount = amount.value
-            newTransaction.date = date.value
-            newTransaction.time = time.value
-            newTransaction.description = description.value
-            save(newTransaction)
-            _navigateToList.value = true
-        }
-    }
-
-    private suspend fun save(transaction: Transaction) {
-        withContext(Dispatchers.IO) {
-            database.insert(transaction)
-        }
-    }
-
-    private fun updateTransaction() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val updatedTransaction = Transaction(
-                transaction?.id,
-                transactionType.value,
-                amount.value,
-                date.value,
-                time.value,
-                description.value,
-            )
-            update(updatedTransaction)
-            _navigateToList.value = true
-        }
-    }
-
-    private suspend fun update(transaction: Transaction) {
-        withContext(Dispatchers.IO) {
-            database.update(transaction)
-        }
-    }
-
-
     fun onNavigateToListScreenComplete() {
         _navigateToList.value = false
         _showSnackBarEvent.value = screenState.value
     }
 
 
+    private fun setTransactionUIData(transactionData: TransactionData) {
+        transactionType.value = transactionData.type
+        amount.value = transactionData.amount
+        date.value = transactionData.date
+        time.value = transactionData.time
+        description.value = transactionData.description
+    }
+
+    private fun saveTransaction() {
+        viewModelScope.launch {
+            val newTransaction = TransactionData()
+            newTransaction.type = transactionType.value
+            newTransaction.amount = amount.value
+            newTransaction.date = date.value
+            newTransaction.time = time.value
+            newTransaction.description = description.value
+            repository.insertTransaction(newTransaction)
+            _navigateToList.value = true
+        }
+    }
+
+    private fun updateTransaction() {
+        viewModelScope.launch {
+            val updatedTransaction = TransactionData(
+                transactionData?.id,
+                transactionType.value,
+                amount.value,
+                date.value,
+                time.value,
+                description.value,
+            )
+            repository.updateTransaction(updatedTransaction)
+            _navigateToList.value = true
+        }
+    }
 
 }

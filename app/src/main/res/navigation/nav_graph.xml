@@ -30,7 +30,7 @@
         tools:layout="@layout/fragment_add_edit_crebit">
         <argument
             android:name="transaction"
-            app:argType="com.shobu95.crebits.database.entities.Transaction"
+            app:argType="com.shobu95.crebits.model.TransactionData"
             app:nullable="true" />
         <argument
             android:name="state"

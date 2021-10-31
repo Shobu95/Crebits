@@ -4,31 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.shobu95.crebits.R
-import com.shobu95.crebits.database.TransactionDatabase
-import com.shobu95.crebits.database.TransactionDatabaseDao
-import com.shobu95.crebits.database.entities.Transaction
+import com.shobu95.crebits.backend.repository.ResultCallBack
+import com.shobu95.crebits.base.FragmentBase
+import com.shobu95.crebits.model.TransactionData
 import com.shobu95.crebits.databinding.FragmentCrebitListBinding
 import com.shobu95.crebits.utils.Constants
+import com.shobu95.crebits.utils.DialogButtonListener
 import com.shobu95.crebits.utils.TwoButtonDialogFragment
 import com.shobu95.crebits.utils.showSnackBar
 
-class CrebitList : Fragment() {
+class CrebitList : FragmentBase() {
 
     private lateinit var binding: FragmentCrebitListBinding
-    private lateinit var database: TransactionDatabaseDao
-    private lateinit var viewModelFactory: CrebitListViewModelFactory
-    private lateinit var viewModel: CrebitListViewModel
+    private val viewModel: CrebitListViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)
+            .get(CrebitListViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater,
@@ -37,25 +39,12 @@ class CrebitList : Fragment() {
             false
         )
 
-        setupDatabase()
-        setupViewModel()
         setupViewLifeCycle()
         setupCrebitList()
         setupSnackBar()
         navigateToAddEditCrebitScreen()
 
         return binding.root
-    }
-
-    private fun setupDatabase() {
-        val application = requireNotNull(this.activity).application
-        database = TransactionDatabase.getInstance(application).transactionDatabaseDao
-    }
-
-    private fun setupViewModel() {
-        viewModelFactory = CrebitListViewModelFactory(database)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(CrebitListViewModel::class.java)
     }
 
     private fun setupViewLifeCycle() {
@@ -67,28 +56,44 @@ class CrebitList : Fragment() {
 
     private fun setupCrebitList() {
         val adapter = CrebitListAdapter(CrebitListListener {
-            if (it != null) {
-                val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(it,getString(R.string.edit_crebit))
-                this.findNavController().navigate(direction)
-            }
+            val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(
+                it,
+                getString(R.string.edit_crebit)
+            )
+            this.findNavController().navigate(direction)
         }, DeleteCrebitListener {
             showDeleteDialog(it)
         })
         binding.rvCrebits.adapter = adapter
 
-        viewModel.transactions.observe(viewLifecycleOwner, {
-            it?.let {
-                adapter.submitList(it as MutableList<Transaction>)
+        viewModel.allTransaction.observe(viewLifecycleOwner, {
+            when (it) {
+                is ResultCallBack.CallException -> {
+                }
+                is ResultCallBack.Error -> {
+                }
+                is ResultCallBack.Success -> {
+                    adapter.submitList(it.data)
+                }
             }
         })
     }
 
-    private fun showDeleteDialog(transaction: Transaction): Boolean {
+    private fun showDeleteDialog(transactionData: TransactionData): Boolean {
         TwoButtonDialogFragment(
             getString(R.string.delete_message),
             getString(R.string.yes),
             getString(R.string.no),
-            viewModel.setDeleteDialogListener(transaction)
+            object : DialogButtonListener {
+                override fun onPositiveClicked() {
+                    viewModel.deleteTransaction(transactionData)
+                }
+
+                override fun onNegativeClicked() {
+                    // just close dialog
+                }
+
+            }
         ).show(parentFragmentManager, Constants.DELETE_DIALOG)
         return true
     }
@@ -97,19 +102,19 @@ class CrebitList : Fragment() {
         viewModel.showDeleteSnackBar.observe(viewLifecycleOwner, {
             if (it == true) {
                 view?.showSnackBar(getString(R.string.delete_crebit_message))
-                viewModel.onSnackBarShown()
+                viewModel.showDeleteSnackBar.value = false
             }
-
         })
     }
 
     private fun navigateToAddEditCrebitScreen() {
         binding.fabAddCrebit.setOnClickListener {
-            val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(null,getString(R.string.add_crebit))
+            val direction = CrebitListDirections.actionCrebitListToAddEditCrebit(
+                null,
+                getString(R.string.add_crebit)
+            )
             it.findNavController().navigate(direction)
         }
     }
-
-
 
 }
